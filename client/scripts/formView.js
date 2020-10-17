@@ -16,7 +16,7 @@ var FormView = {
       // get the text from form input
       text: $('#message').val(),
       // hardcode roomname for now
-      roomname: '4chan',
+      roomname: RoomsView.currentRoom,
     };
     // use parse.create to create new message
     Parse.create(message);

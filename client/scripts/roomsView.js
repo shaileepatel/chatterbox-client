@@ -2,20 +2,18 @@ var RoomsView = {
   // select button with id addRoom
   $button: $('#addRoom'),
   $select: $('#rooms select'),
+  currentRoom: 'lobby',
+
 
   initialize: function() {
     //create a listener for addRoom button
-    RoomsView.$button.on('click', RoomsView.handleAddRoom);
+    RoomsView.$button.on('click', Rooms.add);
     Rooms.readRooms();
-  },
-
-  // create a function for handling where the button is clicked.
-  handleAddRoom: function() {
-    //in that button, create a prompt which asks the user to input the text for new room.#addRoom
-    var addRoom = prompt('Please enter room name: ');
-    // figure out a way to add the new room text in the select dropdown.
-    RoomsView.$select.append(RoomsView.optionTemplate({roomname: addRoom}));
-    // maybe re-render the rooms.
+    RoomsView.$select.on('change', function() {
+      var value = $(this).val();
+      RoomsView.currentRoom = value;
+      console.log(value);
+    });
   },
 
   renderRoom: function(room) {
@@ -44,3 +42,5 @@ var RoomsView = {
 `)
 
 };
+
+
