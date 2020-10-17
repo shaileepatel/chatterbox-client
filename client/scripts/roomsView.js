@@ -4,7 +4,22 @@ var RoomsView = {
   $select: $('#rooms select'),
 
   initialize: function() {
+    //create a listener for addRoom button
+    RoomsView.$button.on('click', RoomsView.handleAddRoom);
     Rooms.readRooms();
+  },
+
+  // create a function for handling where the button is clicked.
+  handleAddRoom: function() {
+    //in that button, create a prompt which asks the user to input the text for new room.#addRoom
+    var addRoom = prompt('Please enter room name: ');
+    // figure out a way to add the new room text in the select dropdown.
+    RoomsView.$select.append(RoomsView.optionTemplate({roomname: addRoom}));
+    // maybe re-render the rooms.
+  },
+
+  renderRoom: function(room) {
+    RoomsView.$select.append(RoomsView.optionTemplate({roomname: room}));
   },
 
   render: function(data) {
@@ -19,7 +34,7 @@ var RoomsView = {
     }
     // loop in uniqueRooms
     for (var room of uniqueRooms) {
-      this.$select.append(this.optionTemplate({roomname: room}));
+      RoomsView.renderRoom(room);
     }
   },
 
