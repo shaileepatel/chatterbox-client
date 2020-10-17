@@ -10,6 +10,9 @@ add renderMessage function:
 var MessagesView = {
 
   $chats: $('#chats'),
+  // create variable for refreshChats button
+  $refreshChats: $('#refreshChats'),
+
   // in initialize function, call parse.readAll. Pass in the callback. within the callback, call renderwiththe data that we got
 
   // pass a similar parse.readAll function in the initialize method.
@@ -18,22 +21,39 @@ var MessagesView = {
 
 
   initialize: function() {
-    Parse.readAll((data) => {
-      console.log(data);
-      this.render(data);
-    });
+    // make ajax call to get all messages from the model
+    Messages.readMessages();
+    //
+    MessagesView.$refreshChats.on('click', MessagesView.reRenderMessages);
+  },
+
+  reRenderMessages: function() {
+    // delete all the messages before rendering new messages to avoid duplication
+    MessagesView.$chats.empty();
+    // call the readMessages function again that will get all the data via parse.readall
+    Messages.readMessages();
   },
 
   //create a render message methodand takes in message object as the input
   renderMessage: function(message) {
-  //assign _.template call
-  // pass in the message object messageview.render to a variable
-  // call that variable and pass in
+    // remove script and img attacks
+    if (!message.text.includes('<script>') && !message.text.includes('src')) {
+      var chat = MessageView.render(message);
+      MessagesView.$chats.append(chat);
+      // console.log(chat);
+      // MessagesView.$chats.append(MessagesView.render());
+      //assign _.template call
+      // pass in the message object messageview.render to a variable
+      // call that variable and pass in
+    }
   },
-  // add children to the elements to $chat
-  //render message view
 
   render: function(data) {
+    for (var item of data.results) {
+      if ('username' in item) {
+        MessagesView.renderMessage(item);
+      }
+    }
     // render the messages viewtemplate.
     // render will loop through data and call renderMessage on each one.
   }

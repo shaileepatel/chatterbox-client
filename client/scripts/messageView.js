@@ -4,12 +4,18 @@ purpose: template for each message. need to figure out how to get the username c
 var MessageView = {
 
   render: _.template(`
-      <!--
       <div class="chat">
-        <div class="username"></div>
-        <div></div>
+        <div class="username"><%=username%></div>
+        <div><%=text%></div>
       </div>
-      -->
     `)
 
 };
+
+// var temp = _.template(`
+// <div class="chat">
+//   <div class="username"><%=user%></div>
+//   <div></div>
+// </div>
+// `);
+// temp({user: "shailee"})
