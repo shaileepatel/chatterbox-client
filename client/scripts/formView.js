@@ -20,7 +20,6 @@ var FormView = {
     };
     // use parse.create to create new message
     Parse.create(message);
-    console.log('click!');
     // clear the input box after the message is submitted
     $('#message').val('');
     // call reRenderMessages to load all the newely added messages

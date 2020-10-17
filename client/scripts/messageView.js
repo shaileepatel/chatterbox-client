@@ -11,11 +11,3 @@ var MessageView = {
     `)
 
 };
-
-// var temp = _.template(`
-// <div class="chat">
-//   <div class="username"><%=user%></div>
-//   <div></div>
-// </div>
-// `);
-// temp({user: "shailee"})
